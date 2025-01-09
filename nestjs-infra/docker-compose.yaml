@@ -1,0 +1,17 @@
+version: "3.9"
+
+services:
+
+  database:
+    image: postgres
+    container_name: nestjs-postgres
+    restart: always
+    ports:
+      - "5432:5432"
+    volumes:
+      - nest-pgdata:/var/lib/postgresql/data
+    environment:
+      POSTGRES_PASSWORD: postgres
+
+volumes:
+  nest-pgdata:
