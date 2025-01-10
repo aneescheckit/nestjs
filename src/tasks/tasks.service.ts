@@ -14,11 +14,12 @@ export class TasksService {
     @InjectRepository(Task) private tasksRepository: Repository<Task>,
   ) {}
 
-  async getTaskById(id: string): Promise<Task> {
+  async getTaskById(id: string, user: User): Promise<Task> {
     // Logic to get task by ID
     const found = await this.tasksRepository.findOne({
       where: {
         id,
+        user,
       },
     });
 
@@ -75,9 +76,13 @@ export class TasksService {
     }
   }
 
-  async updateTaskStatus(id: string, status: TaskStatus): Promise<Task> {
+  async updateTaskStatus(
+    id: string,
+    status: TaskStatus,
+    user: User,
+  ): Promise<Task> {
     // Getting task
-    const task = await this.getTaskById(id);
+    const task = await this.getTaskById(id, user);
 
     // Changinmg status
     task.status = status;
